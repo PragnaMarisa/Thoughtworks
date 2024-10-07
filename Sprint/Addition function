@@ -1,0 +1,13 @@
+3 start 
+two:2
+number1:0 number2:0 result:0 returnValue:0
+start:0 5 number1
+0 8 number2
+0 functionCall returnValue
+1 returnValue two returnValue
+functionCall:3 add
+9
+add:7 returnValue return
+1 number1 number2 result
+3 return:0
+
