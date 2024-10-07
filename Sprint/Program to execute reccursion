@@ -1,0 +1,65 @@
+3 start 
+two:2 number1:11  number:0 counter:1 popedNumber:0 returnToEnd:0 returnToEnd1:0
+stackStartingPointer:stack
+list:200 one:1 
+start:7 stackStartingPointer stackPointer
+7 stackStartingPointer stackPointer1
+7 list lister
+
+
+
+7 number1 number
+0 callPush1 return
+callPush1:3 push
+
+0 returnValue number
+0 callPush2 return
+callPush2:3 push
+
+returnValue:3 printNumber
+9
+
+
+printNumber:7 stackPointer stackPointer2
+4 stackPointer2 stackStartingPointer end
+2 stackPointer2 one stackPointer2
+7 stackPointer2:0 popedNumber 
+7 popedNumber number
+4 number one returnBack
+2 number one number
+0 callPush3 return
+callPush3:3 push
+0 returnIntoFunction number
+0 callPush4 return
+callPush4:3 push
+returnIntoFunction:3 printNumber
+returnBack:0 callPop returnPop
+
+callPop:3 pop
+7 popedNumber returnToTheEnd
+1 returnToTheEnd two returnToTheEnd
+0 callPop1 returnPop
+callPop1:3 pop
+7 popedNumber lister:0
+1 lister one lister
+3 returnToTheEnd:0
+
+
+
+
+push:1 return two return
+1 stackPointer one stackPointer
+7 number stackPointer:0
+3 return:0
+
+pop:1 returnPop two returnPop
+7 stackPointer stackPointer1
+4 stackPointer1 stackStartingPointer end
+7 stackPointer1:0 popedNumber 
+2 stackPointer1 one stackPointer1
+7 stackPointer1 stackPointer
+end:3 returnPop:0
+
+
+
+stack:0
