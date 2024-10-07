@@ -1,0 +1,110 @@
+3 xstartSprint
+
+xjump:3 xaddition:1 xsubtraction:2 xlessThan:5 xequal:4 xput:0 xhalt:9 xcopy:7 xone:1 xcheckInstruction:0
+xifTrueCell:0 
+xstart:xprogram_start
+
+
+xstartSprint:7 xstart xaddress
+
+xcheck:7 xaddress:0 xcheckInstruction
+
+4 xcheckInstruction xjump xifJump
+
+4 xcheckInstruction xhalt xstop
+
+4 xcheckInstruction xaddition xadd
+
+4 xcheckInstruction xsubtraction xsubtract
+
+4 xcheckInstruction xequal xifEqual
+
+4 xcheckInstruction xlessThan
+xifLessthan
+
+4 xcheckInstruction xput
+xinsertValue
+
+4 xcheckInstruction xcopy
+xcopyValue
+
+xstop:9
+
+
+xcopyValue:1 xaddress xone xaddress
+7 xaddress xsourceCell
+7 xsourceCell:0 xsourceValue
+1 xaddress xone xaddress
+7 xaddress xdestinationCell
+7 xdestinationCell:0 xdestinationValue
+7 xsourceValue:0 xdestinationValue:0
+1 xaddress xone xaddress
+3 xcheck
+
+
+xinsertValue:1 xaddress xone xaddress
+7 xaddress xcellValueCell
+7 xcellValueCell:0 xcellValue
+1 xaddress xone xaddress
+7 xaddress xinsertCell
+7 xinsertCell:0 xinsertCellValue
+0 xcellValue:0 xinsertCellValue:0
+1 xaddress xone xaddress
+3 xcheck
+
+xifEqual:0 4 xcompare
+3 xgetCompareValues
+
+xifLessthan:0 5 xcompare
+3 xgetCompareValues
+
+xgetCompareValues:1 xaddress xone xaddress
+7 xaddress xcompareCell1
+1 xaddress xone xaddress
+7 xaddress xcompareCell2
+1 xaddress xone xaddress
+7 xaddress xifYesGoToCell
+7  xcompareCell1:0 xcompare1
+7  xcompareCell2:0 xcompare2
+7  xifYesGoToCell:0 xifTrueCell
+xcompare:4 xcompare1:0 xcompare2:0 xgoToCell
+1 xaddress xone xaddress
+3 xcheck
+
+xgoToCell:7 xifTrueCell xaddress
+3 xcheck
+
+xsubtract:0 2 xoperation
+3 xproceed
+
+xadd:0 1 xoperation
+3 xproceed
+
+xproceed:1 xaddress xone xaddress
+7 xaddress xnumberCell1
+1 xaddress xone xaddress
+7 xaddress xnumberCell2
+1 xaddress xone xaddress
+7 xaddress xresultCell
+7 xnumberCell1:0 xnumber1
+7 xnumberCell2:0 xnumber2
+7 xresultCell:0 xresult
+xoperation:1 xnumber1:0 xnumber2:0 xresult:0
+1 xaddress xone xaddress
+3 xcheck
+
+
+xifJump:1 xaddress xone xaddress
+7 xaddress xjumpTo
+7 xjumpTo:0 xaddress
+
+3 xcheck
+ 
+ 
+
+
+
+
+xprogram_start:3 st n1:1 n2:3 res:0 st:1 n1 n2 res
+9
+
