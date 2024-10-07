@@ -1,0 +1,28 @@
+3 start
+
+listStartCell:56
+lengthOfList:6
+
+start:3 start1
+listEndCell:0 one:1 temperoraryStorage:0
+
+start1:1 listStartCell lengthOfList listEndCell
+2 listEndCell one listEndCell
+7 listStartCell listStart
+
+7 listEndCell listEnd
+
+check:5 listStart listEnd continue
+3 stop
+continue:7 listStart listStart1
+7 listEnd listEnd1
+7 listStart:0 temperoraryStorage
+7 listEnd:0 listStart1:0
+7 temperoraryStorage listEnd1:0
+1 listStart one listStart
+2 listEnd one listEnd
+3 check
+
+stop:9
+
+4 5 8 0 9 2
