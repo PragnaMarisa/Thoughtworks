@@ -1,0 +1,26 @@
+3 startProgram
+
+number:89 result:0
+
+startProgram:3 startAgain
+remainder:0 quotient:0 zero:0 one:1 divisor:10
+
+startAgain:7 number remainder
+
+checkRemainder:4 remainder zero stopProgram
+
+checkRemainder1:5 remainder divisor addRemainder
+
+2 remainder divisor remainder
+
+1 quotient one quotient
+
+3 checkRemainder1
+
+addRemainder:1 result remainder result
+
+7 quotient remainder
+7 zero quotient
+
+3 checkRemainder
+stopProgram:9
