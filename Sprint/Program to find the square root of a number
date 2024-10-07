@@ -1,0 +1,14 @@
+3 5
+sqRoot:18 res:0 
+3 11
+cou:0 sqVal:0 one:1 zero:0
+5 sqRoot sqVal subRes
+7 zero sqVal
+1 res one res
+7 res cou
+repAdd:1 sqVal res sqVal
+2 cou one cou
+4 cou zero 11
+3 repAdd
+subRes:2 res one res
+9
