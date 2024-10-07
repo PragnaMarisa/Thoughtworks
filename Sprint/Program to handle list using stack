@@ -1,0 +1,98 @@
+3 start
+
+list1:200
+list2:250
+counter:0
+one:1
+two:2
+sumOfListElements:0
+result:0
+list1Length:0
+list2Length:0
+pushElement:0
+popElement:0
+stackStartingLocation:260
+
+
+
+start:7 stackStartingLocation stackPointer1
+
+7 list1 list1StartingLocation
+6 list1Length 
+7 list1Length list1StartingLocation:0
+7 list1StartingLocation list1Location
+checkCounter:4 counter list1Length stopTakingInput
+1 list1Location one list1Location
+takeInputsOfList1:6 list1Location:0
+1 counter one counter
+3 checkCounter
+
+stopTakingInput:0 0 counter
+7 list2 list2StartingLocation
+6 list2Length 
+7 list2Length list2StartingLocation:0
+7 list2StartingLocation list2Location
+checkCounter1:4 counter list2Length stopTakingInput1
+1 list2Location one list2Location
+takeInputsOfList2:6 list2Location:0
+1 counter one counter
+3 checkCounter1
+
+stopTakingInput1:7 list2 pushElement
+0 callPush1 returnPush
+callPush1:3 push
+
+0 returnToMain returnToTheEnd
+1 returnToTheEnd two returnToTheEnd
+7 returnToTheEnd pushElement
+0 callPush2 returnPush
+callPush2:3 push
+
+
+returnToMain:3 addListElements
+
+0 callPop3 returnPop
+callPop3:3 pop
+7 popElement sumOfListElements
+
+9
+
+addListElements:7 stackPointer1 stackPointer2
+7 stackPointer2:0 returnToTheEnd
+
+7 stackPointer2 stackPointer3
+2 stackPointer3 one stackPointer3
+7 stackPointer3:0 listLocation
+
+7 listLocation:0 list1Length
+1 listLocation list1Length list1EndPoint
+
+checkListLocation:4 listLocation list1EndPoint stopAddingElements
+1 list1EndPoint:0 result result
+2 list1EndPoint one list1EndPoint
+3 checkListLocation
+
+stopAddingElements:0 callPop returnPop
+callPop:3 pop
+
+0 callPop1 returnPop
+callPop1:3 pop
+
+7 result pushElement
+0 callPush3 returnPush
+callPush3:3 push
+
+3 returnToTheEnd:0
+
+
+push:1 stackPointer1 one stackPointer1
+1 returnPush two returnPush
+7 pushElement stackPointer1:0
+3 returnPush:0
+
+pop:1 returnPop two returnPop
+7 stackPointer1 stackPointerPop
+7 stackPointerPop:0 popElement
+2 stackPointerPop one stackPointerPop
+7 stackPointerPop stackPointer1
+3 returnPop:0
