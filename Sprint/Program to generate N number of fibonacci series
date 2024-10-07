@@ -1,0 +1,17 @@
+3 start
+seriesStartingLocation:43
+requiredTermOfSeries:9 counter:1 one:1
+start:3 start1
+temperoraryStorage1:0
+temperoraryStorage2:1
+temperoraryStorage3:1
+start1:7 seriesStartingLocation startingLocation
+check:5 requiredTermOfSeries counter stop
+7 temperoraryStorage1 startingLocation:0
+1 startingLocation one startingLocation
+1 counter one counter 
+7 temperoraryStorage2 temperoraryStorage1
+7 temperoraryStorage3 temperoraryStorage2
+1 temperoraryStorage1 temperoraryStorage2 temperoraryStorage3
+3 check
+stop:9
