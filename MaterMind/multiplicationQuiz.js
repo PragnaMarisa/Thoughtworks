@@ -81,6 +81,7 @@ function prepareQuiz() {
 
   if (!isUserIntrested) {
     console.log("Gain some knowledge and come back soon");
+    return 0;
   }
 
   const userName = prompt("Enter your name: ");
