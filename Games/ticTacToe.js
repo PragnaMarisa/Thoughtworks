@@ -42,23 +42,21 @@ function createGrid(tableData) {
   return table;
 }
 
-const tictactoe = '123456789';
 
-function getModifedInput(index, symbol, start, result, string) {
-  let char = string[start];
-
+function getModifedInput(index, symbol, start, result, tictactoe) {
+  let char = tictactoe[start];
+  
   if (start === tictactoe.length) {
     return '';
   }
-
-  if (char === string[index - 1]) {
+  
+  if (char === tictactoe[index - 1]) {
     char = symbol;
   }
-
-  return char + getModifedInput(index, symbol, start + 1, result, string);
+  
+  return char + getModifedInput(index, symbol, start + 1, result, tictactoe);
 }
 
-console.log(createGrid(tictactoe));
 
 function getPlayerInput(player) {
   return +prompt("Enter a number " + player + " : ");
@@ -76,26 +74,26 @@ function are3Matched(tictactoe) {
   const row1 =are3Equal(0, 1, 2, tictactoe);
   const row2 = are3Equal(3, 4, 5, tictactoe);
   const row3 = are3Equal(6, 7, 8, tictactoe);
-
+  
   if (row1 || row2 || row3) {
     return true;
   }
-
+  
   const column1 = are3Equal(0, 3, 6, tictactoe);
   const column2 = are3Equal(1, 4, 7, tictactoe);
   const column3 = are3Equal(2, 5, 8, tictactoe);
-
+  
   if (column1 || column2 || column3) {
     return true;
   }
-
+  
   const digonal1 = are3Equal(0, 4, 8, tictactoe);
   const digonal2 = are3Equal(6, 4, 2, tictactoe);
-
+  
   if (digonal1 || digonal2) {
     return true;
   }
-
+  
   return false;
 }
 
@@ -111,21 +109,21 @@ function startGame(player1, player2, count, tictactoe) {
     currentPlayer = player1 + ' "❌"';
     symbol = 'X';
   }
-
+  
   const input = getPlayerInput(currentPlayer);
-
+  
   if(validateInput(input, tictactoe)) {
     console.clear();
     tictactoe = getModifedInput(input, symbol, 0, '', tictactoe);
     console.log(createGrid(tictactoe));
-
+    
     if (are3Matched(tictactoe)) {
       console.log("Congratulations!! " + currentPlayer + " you won!!");
       return 0;
     }
     return startGame(player1, player2, count + 1, tictactoe)
   }
-
+  
   console.log("You can't select a block which is used. Try another..");
   return startGame(player1, player2, count, tictactoe);
 }
@@ -138,6 +136,7 @@ function prepareGame() {
   console.log("Welcome to TicTacToe!");
   const player1 = getPlayerName('player1');
   const player2 = getPlayerName('player2');
+  const tictactoe = '123456789';
   startGame(player1, player2, 0, tictactoe);
   console.log("Come back soon!!");
 }
