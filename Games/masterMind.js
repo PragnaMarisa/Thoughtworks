@@ -1,10 +1,6 @@
 const colorCode = '🔵 = b, ⚪️ = w, 🟠 = o, 🔴 = r, 🟣 = p, 🟡 = y, 🟢 = g';
 const pegCodes = 'bworpyg';
 
-function greetUser() {
-  console.log("Welcome to the MasterMind Game!");
-}
-
 function getIndexFromStart(string, target, start) {
   if (start === string.length) {
     return -1;
@@ -21,47 +17,35 @@ function findIndex(string, char) {
   return getIndexFromStart(string, char, 0);
 }
 
-function getEmojiFromStart(string, target, start) {
-  if (start >= string.length) {
-    return -1;
-  }
-
-  if (string[start] + string[start + 1] === target) {
-    return start;
-  }
-
-  return getEmojiFromStart(string, target, start + 2);
-}
-
-function findEmoji(string, char) {
-  return getEmojiFromStart(string, char, 0);
-}
-
 function createStringOfNumbers(noOfPos) {
   if (noOfPos === 0) {
     return '';
   }
 
-  return createStringOfNumbers(noOfPos - 1) + ' ' + noOfPos;
+  return createStringOfNumbers(noOfPos - 1) + noOfPos + ' ';
 }
 
 function getAlpha(code) {
   return pegCodes[code - 1];
 }
 
-function codeMaker(secretCode, start, noOfPegs) {
+function getRandomInt(from, to) {
+  return Math.ceil((Math.random() * (from + to - 1)) + from);
+}
+
+function makeCode(secretCode, start, noOfPegs) {
   if (start === noOfPegs) {
     return secretCode;
   }
 
-  const alpha = getAlpha(Math.ceil((Math.random() * 10) % 7));
+  const alpha = getAlpha(getRandomInt(1, 7));
 
   if (findIndex(secretCode, alpha) === -1) {
     secretCode = secretCode + alpha;
     start += 1;
   }
 
-  return codeMaker(secretCode, start, noOfPegs);
+  return makeCode(secretCode, start, noOfPegs);
 }
 
 function getColoredPegs(secretCode) {
@@ -89,11 +73,8 @@ function getFeedback(codePegs, secretPegs, start, scoringPegs) {
     return scoringPegs;
   }
 
-  const codePeg = codePegs[start] + codePegs[start + 1];
-  const secretPeg = secretPegs[start] + secretPegs[start + 1];
-
-  const validPosition = codePeg === secretPeg;
-  const validColor = findEmoji(secretPegs, codePeg) !== -1;
+  const validPosition = codePegs[start] === secretPegs[start];
+  const validColor = findIndex(secretPegs, codePegs[start]) !== -1;
 
   if (validColor && !validPosition) {
     scoringPegs = '𖡡' + scoringPegs;
@@ -101,7 +82,7 @@ function getFeedback(codePegs, secretPegs, start, scoringPegs) {
 
   scoringPegs += validPosition ? '📍' : '';
 
-  return getFeedback(codePegs, secretPegs, start + 2, scoringPegs);
+  return getFeedback(codePegs, secretPegs, start + 1, scoringPegs);
 }
 
 function getScoringPegs(codePegs, secretPegs) {
@@ -109,63 +90,86 @@ function getScoringPegs(codePegs, secretPegs) {
 }
 
 function getDecodingBoard(codePegs, scoringPegs, decodingBoard) {
-  decodingBoard += codePegs + '\t\t\t\t\t' + scoringPegs + '\n';
+  decodingBoard += codePegs + '\t\t' + scoringPegs + '\n';
   return decodingBoard;
 }
 
 function displayInstructions() {
-  console.log('\n' + colorCode);
-  console.log('\n📍 indicates right color in correct position.')
-  console.log('𖤥 indicates right color in wrong position.')
+  console.log('\n' + colorCode + '\n');
+  console.log('📍 indicates right color in correct position.');
+  console.log('𖤥 indicates right color in wrong position.\n');
 }
 
-function startGame(codeBreaker, scoringPegs, secretPegs, display) {
-  let codePegs = prompt("\nEnter the sequence : ");
-
-  if (findIndex(pegCodes, codePegs[0]) !== -1) {
-    codePegs = getCodedPegs(codePegs, 0);
+function validateInput(input, string, start) {
+  const char = input[start];
+  if (start === input.length) {
+    return true;
   }
+
+  if (findIndex(pegCodes, char) !== -1 && findIndex(string, char) === -1) {
+    string += char;
+    return validateInput(input, string, start + 1);
+  }
+
+  return false;
+}
+
+function getUserInput(noOfPegs) {
+  const input = prompt("\nEnter the sequence : ");
+  if (validateInput(input, '', 0) && input.length === noOfPegs) {
+    return input;
+  }
+
+  console.log("Enter a valid Input.");
+  return getUserInput();
+}
+
+function startGame(codeBreaker, scoringPegs, secretPegs, display, noOfPegs) {
+  const codePegs = getUserInput(noOfPegs, secretPegs);
+  const coloredPegs = getCodedPegs(codePegs, 0);
 
   console.clear();
   displayInstructions();
 
   scoringPegs = getScoringPegs(codePegs, secretPegs);
 
-  const decodingBoard = getDecodingBoard(codePegs, scoringPegs, display);
+  const decodingBoard = getDecodingBoard(coloredPegs, scoringPegs, display);
   console.log(decodingBoard);
 
   if (codePegs === secretPegs) {
-    console.log("\nCongratulations!!! 🥳" + codeBreaker + '.🥳');
-    return 0;
+    return "\nCongratulations!!! 🥳" + codeBreaker + '.🥳';
   }
 
-  return startGame(codeBreaker, scoringPegs, secretPegs, decodingBoard);
+  return startGame(codeBreaker, scoringPegs, secretPegs, decodingBoard, noOfPegs);
+}
+
+function getPlayerName() {
+  return prompt("Enter you Name: ");
+}
+
+function getNoOfPegs() {
+  const noOfPegs = +(prompt("How many Pegs do You want: "));
+
+  return noOfPegs < 8 && noOfPegs > 0 ? noOfPegs : getNoOfPegs();
 }
 
 function prepareGame() {
-  const codeBreaker = prompt("Enter you Name: ");
-  const noOfPegs = +(prompt("How many Pegs do You want: "));
+  const codeBreaker = getPlayerName();
+  const noOfPegs = getNoOfPegs();
 
   displayInstructions();
 
-  const secretCode = codeMaker('', 0, noOfPegs);
-  const secretPegs = getCodedPegs(secretCode, 0);
-  console.log(secretPegs)
+  const secretCode = makeCode('', 0, noOfPegs);
+  // console.log(secretCode);
 
-  const decodingBoard = getDecodingBoard(createStringOfNumbers(noOfPegs), 'Scoring Pegs', '');
-  startGame(codeBreaker, '', secretPegs, decodingBoard);
+  const postionHeader = createStringOfNumbers(noOfPegs);
+  const decodingBoard = getDecodingBoard(postionHeader, 'Scoring Pegs', '');
+  return startGame(codeBreaker, '', secretCode, decodingBoard, noOfPegs);
 }
 
 function runGame() {
-  greetUser();
-
-  const willUserPlay = confirm("Do you want to play?");
-
-  if (!willUserPlay) {
-    console.log("I can understand it!! come back soon..");
-  }
-
-  prepareGame();
+  console.log("Welcome to the MasterMind Game!");
+  return prepareGame();
 }
 
-runGame();
+console.log(runGame());
