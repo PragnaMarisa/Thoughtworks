@@ -1,26 +1,34 @@
 // testing part...
 
-function getMaxLengthOfData(testedData, colIndex) {
-  let maxLength = 0;
-
+function getMaxLengthOfData(testedData, headers, colIndex) {
+  let maxLength = headers[colIndex].length;
+  
   for (let index = 0; index < testedData.length; index++) {
     const currData = testedData[index][colIndex];
     if (currData.length > maxLength) {
       maxLength = currData.length;
     }
   }
-
   return maxLength;
 }
 
-function getMaximumLengthsOf(testedData, columns) {
+function getMaximumLengthsOf(testedData, headers) {
   const lengths = [];
-
-  for (let index = 0; index < columns.length; index++) {
-    lengths.push(getMaxLengthOfData(testedData, columns[0]) + 4);
+  
+  for (let index = 0; index < headers.length; index++) {
+    lengths.push(getMaxLengthOfData(testedData, headers, index) + 2);
   }
 
   return lengths;
+}
+
+function getAlignmentLine(inputDataLengths) {
+  let line = '|';
+  for (let index = 0; index < inputDataLengths.length; index++) {
+    line += ':' + createHyphenLine(inputDataLengths[index] - 2) + ':|';
+  }
+
+  return line;
 }
 
 function repeat(string, noOfTimes) {
@@ -44,7 +52,7 @@ function createRow(columns, columnLengths) {
 
   let row = '|';
   for (let column = 0; column < columns.length; column++) {
-    row += '  ' + columns[column];
+    row += ' ' + columns[column];
     row += createSpacedString(columnLengths[column] - row.length) + '|';
     finalRow = finalRow + row;
     row = '';
@@ -54,27 +62,27 @@ function createRow(columns, columnLengths) {
 }
 
 function createHeader(headers, inputDataLengths) {
-  const headerLength = createRow(headers, inputDataLengths).length;
-  console.log(createHyphenLine(headerLength));
   console.log(createRow(headers, inputDataLengths));
-  console.log(createHyphenLine(headerLength));
 }
 
 function createResultsRow(rows, inputDataLengths) {
-  for (let index = 0; index < rows.length; index++) {
-    const hyphenLength = createRow(rows[index], inputDataLengths).length;
-
-    console.log(createRow(rows[index], inputDataLengths));
-    console.log(createHyphenLine(hyphenLength));
+  for (const row of rows) {
+    console.log(createRow(row, inputDataLengths));
   }
 }
 
 function createTestsTable(headers, testedData) {
-  const inputDataLengths = getMaximumLengthsOf(testedData, [1, 2, 3]);
-  inputDataLengths.unshift(10);
+  const programNo = '01';
+  const programName = 'Strictly Ascending';
+
+  console.log('\n# '+ programNo + ' ' +  programName + '\n');
+
+  const inputDataLengths = getMaximumLengthsOf(testedData, headers);
 
   createHeader(headers, inputDataLengths);
   inputDataLengths[0] = inputDataLengths[0] - 1;
+
+  console.log(getAlignmentLine(inputDataLengths));
   createResultsRow(testedData, inputDataLengths);
 }
 
