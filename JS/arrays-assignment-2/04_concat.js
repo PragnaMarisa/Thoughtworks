@@ -1,6 +1,21 @@
 // concat the given arrays.
 // concat([1, 2, 3], [4, 5, 6]) => [1, 2, 3, 4, 5, 6]
 
+function concatArray(arrays) {
+  console.log(arrays, '.');
+  const concatedArray = [];
+
+  for (let i = 0; i < arrays.length; i++) {
+    const arrayToBeConcated = arrays[i];
+
+    for (let j = 0; j < arrayToBeConcated.length; j++) {
+      concatedArray.push(arrays[i][j]);
+    }
+  }
+
+  return concatedArray;
+}
+
 function areArraysEqual(array1, array2, index) {
   if (index === array1.length) {
     return true;
