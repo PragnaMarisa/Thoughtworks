@@ -10,13 +10,12 @@ function isMatrixRegular(matrix) {
   return true;
 }
 
-function isAValidMatrices(matrixA, matrixB) {
+function areValidMatrices(matrixA, matrixB) {
 
-  if (!(isMatrixRegular(matrixA) && isMatrixRegular(matrixB))) {
-    return false;
-  }
+  const canMatricesMultiply = matrixA[0].length === matrixB.length;
+  const areMatricesReg = isMatrixRegular(matrixA) && isMatrixRegular(matrixB);
 
-  return matrixA[0].length === matrixB.length;
+  return canMatricesMultiply && areMatricesReg;
 }
 
 function createRow(matrixA, matrixB, row) {
@@ -40,7 +39,7 @@ function multiplyMatrices(matrixA, matrixB) {
     return productMatrix;
   }
 
-  if (!isAValidMatrices(matrixA, matrixB)) {
+  if (!areValidMatrices(matrixA, matrixB)) {
     return NaN;
   }
 
@@ -87,7 +86,7 @@ function getMaxLengthOfData(testedData, headers, colIndex) {
 
   for (let index = 0; index < testedData.length; index++) {
     const currData = '' + testedData[index][colIndex];
-    
+
     if (currData.length > maxLength) {
       maxLength = currData.length;
     }
@@ -197,6 +196,7 @@ function testAll() {
     [[19, 22], [43, 50]]));
   testedData.push(testMatrixMultiply([[1, 2], [3]], [[5, 6], [7, 8]], NaN));
   testedData.push(testMatrixMultiply([[], []], [[], []], NaN));
+  // testedData.push(testMatrixMultiply([[], []], [[], []], NaN));
   testedData.push(testMatrixMultiply([[1]], [[1]], [[1]]));
   testedData.push(testMatrixMultiply([], [], []));
   testedData.push(testMatrixMultiply([[1, 2], [3, 4]], [[5, 6], [7, 8], [2, 9]],
