@@ -20,7 +20,7 @@ function getMaxLengthOfData(testedData, headers, colIndex) {
   let maxLength = headers[colIndex].length;
   
   for (let index = 0; index < testedData.length; index++) {
-    const currData = testedData[index][colIndex];
+    const currData = '' + testedData[index][colIndex];
     if (currData.length > maxLength) {
       maxLength = currData.length;
     }
@@ -40,6 +40,7 @@ function getMaximumLengthsOf(testedData, headers) {
 
 function getAlignmentLine(inputDataLengths) {
   let line = '|';
+
   for (let index = 0; index < inputDataLengths.length; index++) {
     line += ':' + createHyphenLine(inputDataLengths[index] - 2) + ':|';
   }
@@ -78,7 +79,7 @@ function createRow(columns, columnLengths) {
 }
 
 function createHeader(headers, inputDataLengths) {
-  console.log(createRow(headers, inputDataLengths));
+  return (createRow(headers, inputDataLengths));
 }
 
 function createResultsRow(rows, inputDataLengths) {
@@ -96,7 +97,7 @@ function createTestsTable(headers, testedData) {
 
   const inputDataLengths = getMaximumLengthsOf(testedData, headers);
 
-  createHeader(headers, inputDataLengths);
+  console.log(createHeader(headers, inputDataLengths));
   inputDataLengths[0] = inputDataLengths[0] - 1;
 
   console.log(getAlignmentLine(inputDataLengths));
@@ -111,7 +112,7 @@ function testStrictlyAscending(array, expected) {
   const actual = isStrictlyAscending(array);
   const isPassed = actual === expected;
 
-  return [getMark(isPassed), '[' + array + ']', actual, expected];
+  return [getMark(isPassed), array, actual, expected];
 }
 
 function testAll() {
@@ -125,6 +126,7 @@ function testAll() {
   testedData.push(testStrictlyAscending([1, 3, 3, 4], false));
   testedData.push(testStrictlyAscending([2, 1], false));
   testedData.push(testStrictlyAscending([1, 31, 3, 4], false));
+  
   createTestsTable(headers, testedData);
 }
 
