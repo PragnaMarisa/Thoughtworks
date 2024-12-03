@@ -21,44 +21,40 @@ function isAValidMatrices(matrixA, matrixB) {
 
 function createRow(matrixA, matrixB, row) {
   const matrixRow = [];
+
   for (let rowCount = 0; rowCount < matrixA.length; rowCount++) {
     let productSum = 0;
+
     for (let col = 0; col < row.length; col++) {
       productSum += row[col] * matrixB[col][rowCount];
     }
+
     matrixRow.push(productSum);
   }
-
   return matrixRow;
 }
 
 function multiplyMatrices(matrixA, matrixB) {
-
+  const productMatrix = [];
   if (matrixA.length === 0 || matrixB.length === 0) {
-    return [];
+    return productMatrix;
   }
 
   if (!isAValidMatrices(matrixA, matrixB)) {
     return NaN;
   }
 
-  const productMatrix = [];
-
   for (const row of matrixA) {
     productMatrix.push(createRow(matrixA, matrixB, row));
   }
-
   return productMatrix;
 }
-
 
 // testing part...
 
 function isNan(input) {
   return "" + input === "NaN" && input !== "NaN";
 }
-
-
 
 function areArraysEqual(array1, array2) {
 
@@ -91,6 +87,7 @@ function getMaxLengthOfData(testedData, headers, colIndex) {
 
   for (let index = 0; index < testedData.length; index++) {
     const currData = '' + testedData[index][colIndex];
+    
     if (currData.length > maxLength) {
       maxLength = currData.length;
     }
