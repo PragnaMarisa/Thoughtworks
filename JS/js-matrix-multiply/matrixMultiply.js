@@ -18,10 +18,10 @@ function areValidMatrices(matrixA, matrixB) {
   return canMatricesMultiply && areMatricesReg;
 }
 
-function createRow(matrixA, matrixB, row) {
+function createRow(matrixB, row) {
   const matrixRow = [];
 
-  for (let rowCount = 0; rowCount < matrixA.length; rowCount++) {
+  for (let rowCount = 0; rowCount < matrixB[0].length; rowCount++) {
     let productSum = 0;
 
     for (let col = 0; col < row.length; col++) {
@@ -44,7 +44,7 @@ function multiplyMatrices(matrixA, matrixB) {
   }
 
   for (const row of matrixA) {
-    productMatrix.push(createRow(matrixA, matrixB, row));
+    productMatrix.push(createRow(matrixB, row));
   }
   return productMatrix;
 }
@@ -195,10 +195,13 @@ function testAll() {
   testedData.push(testMatrixMultiply([[1, 2], [3, 4]], [[5, 6], [7, 8]],
     [[19, 22], [43, 50]]));
   testedData.push(testMatrixMultiply([[1, 2], [3]], [[5, 6], [7, 8]], NaN));
+  testedData.push(testMatrixMultiply([[1]], [[1, 2]], [[1, 2]]));
+  testedData.push(testMatrixMultiply([[1, 2]], [[1], [2]], [[5]]));
   testedData.push(testMatrixMultiply([[], []], [[], []], NaN));
-  // testedData.push(testMatrixMultiply([[], []], [[], []], NaN));
   testedData.push(testMatrixMultiply([[1]], [[1]], [[1]]));
   testedData.push(testMatrixMultiply([], [], []));
+  testedData.push(testMatrixMultiply([[]], [[]], NaN));
+  testedData.push(testMatrixMultiply([[1]], [[1],[2]], NaN));
   testedData.push(testMatrixMultiply([[1, 2], [3, 4]], [[5, 6], [7, 8], [2, 9]],
     NaN));
 
