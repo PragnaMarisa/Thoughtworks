@@ -20,10 +20,14 @@ function getNumberInArrays(number) {
 }
 
 function getTwoDigitWord(number) {
+  if (number < 20) {
+    return digits1To19InWords[number];
+  }
+
   const tenthDigit = Math.floor(number / 10);
   let onesDigit = number % 10;
-  let word = tensInWords[tenthDigit] + ' ' + digits1To19InWords[onesDigit];
-  word = (number < 20) ? digits1To19InWords[number] : word;
+  const word = tensInWords[tenthDigit] + ' ' + digits1To19InWords[onesDigit];
+
   return word.trim();
 }
 
