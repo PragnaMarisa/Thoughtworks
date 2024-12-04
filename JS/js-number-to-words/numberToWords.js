@@ -8,12 +8,12 @@ const tensInWords = ['', '', 'twenty', 'thirty', 'forty', 'fifty',
 const posInWords = ['ten', 'hundred', 'thousand', 'million', 'billion'];
 
 function getNumberInArrays(number) {
-  const numberInString = '' + number;
+  let num = number;
   const numberArray = [];
 
-  for (let index = numberInString.length; index > 0; index -= 3) {
-    const start = index > 3 ? index - 3 : 0;
-    numberArray.unshift(+numberInString.slice(start, index));
+  while (num > 0) {
+    numberArray.unshift(num % 1000);
+    num = Math.floor(num / 1000);
   }
 
   return numberArray;
