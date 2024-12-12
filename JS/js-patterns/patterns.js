@@ -40,12 +40,8 @@ function padEndAnArray(array, length) {
   return paddedArray;
 }
 
-function getHollowOrFilledLine(isHollow, columns, char) {
-  if (isHollow) {
-    return getHollowLine(columns, char);
-  }
-
-  return filledLine(columns, char);
+function getHollowOrFilledLine(lineFunction, columns, char) {
+  return lineFunction(columns, char);
 }
 
 function getMaxLengthOfRow(array) {
@@ -157,12 +153,12 @@ function drawRightAngledTriangle(dimensions) {
 
 // Equilateral Triangle
 
-function drawEquilateralTriangle(base, isHollow) {
+function drawEquilateralTriangle(base, getHollowLine) {
   const equilteralTriangle = [];
   let spaceToBePadded = Math.ceil(base / 2);
 
   for (let count = 1; count <= base; count += 2) {
-    const line = getHollowOrFilledLine(isHollow, count, STAR);
+    const line = getHollowOrFilledLine(getHollowLine, count, STAR);
     const paddedLine = line.padStart(spaceToBePadded, SPACE);
 
     equilteralTriangle.push(paddedLine);
@@ -196,14 +192,14 @@ function drawDiamond1(dimensions, isHollow) {
 
 // Diamond 2
 
-function drawDiamond(dimensions, isHollow) {
+function drawDiamond(dimensions, getHollowLine) {
   const height = dimensions[0];
   const oddDimension = height - ((height + 1) & 1);
   let spaceToBePadded = oddDimension - 1;
-  const diamond = [getHollowOrFilledLine(isHollow, oddDimension, STAR)];
+  const diamond = [getHollowOrFilledLine(getHollowLine, oddDimension, STAR)];
 
   for (let count = oddDimension - 2; count >= 1; count -= 2) {
-    const line = getHollowOrFilledLine(isHollow, count, STAR);
+    const line = getHollowOrFilledLine(getHollowLine, count, STAR);
     const paddedLine = line.padStart(spaceToBePadded, SPACE);
 
 
@@ -219,13 +215,13 @@ function drawDiamond(dimensions, isHollow) {
 // Filled Diamond
 
 function drawFilledDiamond(dimensions) {
-  return drawDiamond(dimensions, false);
+  return drawDiamond(dimensions, filledLine);
 }
 
 // Hollow Diamond
 
 function drawHollowDiamond(dimensions) {
-  return drawDiamond(dimensions, true);
+  return drawDiamond(dimensions, getHollowLine);
 }
 
 function areDimensionsGreaterThanZero(dimensions) { //areDimensionsPositive
@@ -262,7 +258,6 @@ function getPattern(style, dimensions) {
 
 function joinPatterns(style1, style2) {
   const paddedStyle1 = padEndAnArray(style1, getMaxLengthOfRow(style1));
-  console.log(paddedStyle1);
 
   const maxLength = Math.max(style1.length, style2.length);
   const joinedArrays = [];
@@ -545,15 +540,15 @@ function testFilledDiamondAndTriangle() {
   const testCases = [
     ['diamond', [0], 'triangle', ''],
     ['diamond', [1], 'triangle', '* *'],
-    ['diamond', [2], 'triangle', '* *'],
-    ['diamond', [3], 'triangle', ' *   *\n*** * *\n *   *'],
-    ['diamond', [4], 'triangle', ' *   *\n*** * *\n *   *'],
+    ['diamond', [2], 'triangle', '* *\n  **'],
+    ['diamond', [3], 'triangle', ' *  *\n*** **\n *  ***'],
+    ['diamond', [4], 'triangle', ' *  *\n*** **\n *  ***\n    ****'],
     ['diamond', [5], 'triangle',
-      '  *     *\n ***   * *\n***** *   *\n ***   * *\n  *     *'],
+      '  *   *\n ***  **\n***** ***\n ***  ****\n  *   *****'],
     ['diamond', [6], 'triangle',
-      '  *     *\n ***   * *\n***** *   *\n ***   * *\n  *     *'],
+      '  *   *\n ***  **\n***** ***\n ***  ****\n  *   *****\n      ******'],
     ['diamond', [7], 'triangle',
-      '   *       *\n  ***     * *\n *****   *   *\n******* *     *\n *****   *   *\n  ***     * *\n   *       *']
+      '   *    *\n  ***   **\n *****  ***\n******* ****\n *****  *****\n  ***   ******\n   *    *******']
   ];
 
   return testCases;
@@ -603,7 +598,7 @@ function testAll() {
   runTestCases(testFilledDiamondAndHollowDiamond(), failed);
   // runTestCasesReverse(testFilledDiamondAndHollowDiamond(), failed);
 
-  // runTestCases(testFilledDiamondAndTriangle(), failed);
+  runTestCases(testFilledDiamondAndTriangle(), failed);
   // runTestCasesReverse(testFilledDiamondAndTriangle(), failed);
 
   console.table(failed);
